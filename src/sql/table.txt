@@ -1,0 +1,74 @@
+//用户表
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL auto_increment COMMENT '主键',
+  `name` varchar(20) not NULL COMMENT '名字',
+  `password` varchar(20) not NULL COMMENT '密码',
+  `no` varchar(20) default NULL COMMENT '账号-学生一般用学号',
+  `dorm_no` varchar(20) default NULL COMMENT '宿舍编号',
+  `build_id` int(11) default NULL COMMENT '宿舍楼id',
+  `sex` varchar(20) default NULL COMMENT '性别',
+  `phone` varchar(20) default NULL COMMENT '电话',
+  `role_id` int(11) default NULL COMMENT '角色 0超级管理员，1管理员，2学生',
+  `creator` int(11) default NULL COMMENT '创建人id',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+//宿舍楼
+CREATE TABLE `build` (
+  `id` int(11) NOT NULL auto_increment COMMENT '主键',
+  `name` varchar(20) NOT NULL COMMENT '名字',
+  `remark` varchar(50) default NULL COMMENT '备注',
+  `isValid` varchar(4) default 'Y' COMMENT '是否有效，Y有效，其他无效',
+  PRIMARY KEY  (`id`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+//宿舍楼与管理员关系表
+CREATE TABLE `manage_build_rel` (
+  `id` int(11) NOT NULL auto_increment COMMENT '主键',
+  `user_id` int(11) default NULL COMMENT '管理员id',
+  `build_id` int(11) default NULL COMMENT '宿舍楼id',
+  PRIMARY KEY  (`id`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+//宿舍
+CREATE TABLE `dorm` (
+  `id` int(11) NOT NULL auto_increment COMMENT '主键',
+  `name` varchar(20) NOT NULL COMMENT '名字',
+  `remark` varchar(50) default NULL COMMENT '备注',
+  `build_id` int(11) default NULL COMMENT '宿舍楼id',
+  `max_num` int(11) default 0 COMMENT '最大人数',
+  PRIMARY KEY  (`id`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+// 考勤表
+CREATE TABLE `record` (
+ `id` int(11) NOT NULL auto_increment COMMENT '主键',
+  `student_id` int(11) default NULL COMMENT '学生id',
+  `date` date default NULL COMMENT '考勤日期',
+  `record_type` varchar(2) default '1' COMMENT '考勤类型',
+  `remark` varchar(50) default NULL COMMENT '备注',
+  PRIMARY KEY  (`id`)
+)  ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE `menu` (
+  `id` int(11) NOT NULL,
+  `menuCode` varchar(8) default NULL COMMENT '菜单编码',
+  `menuName` varchar(16) default NULL COMMENT '菜单名字',
+  `menuLevel` varchar(2) default NULL COMMENT '菜单级别',
+  `menuParentCode` varchar(8) default NULL COMMENT '菜单的父code',
+  `menuClick` varchar(16) default NULL COMMENT '点击触发的函数',
+  `menuRight` varchar(8) default NULL COMMENT '权限2表示学生，1表示管理员，0超级管理员，可以用逗号组合使用',
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+INSERT INTO `menu` VALUES ('1', '001', '宿舍管理员管理', '1', null, 'adminManage', '0');
+INSERT INTO `menu` VALUES ('2', '002', '学生管理', '1', null, 'studentManage', '0,1');
+INSERT INTO `menu` VALUES ('3', '003', '宿舍楼管理', '1', null, 'buildManage', '0');
+INSERT INTO `menu` VALUES ('4', '004', '宿舍管理', '1', null, 'dormManage', '0,1');
+INSERT INTO `menu` VALUES ('5', '005', '考勤管理', '1', null, 'recordManage', '0,1,2');
+INSERT INTO `menu` VALUES ('6', '006', '修改密码', '1', null, 'modPwd', '0,1,2');
+
+INSERT INTO `user` VALUES ('1', '超级管理员1', '123456', 'sa', null, null, '1', '123445', '0', null);

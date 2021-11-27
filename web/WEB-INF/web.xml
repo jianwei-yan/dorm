@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+		  http://java.sun.com/xml/ns/javaee/web-app_4_0.xsd"
+           version="4.0">
+    <welcome-file-list>
+        <welcome-file>login.jsp</welcome-file>
+    </welcome-file-list>
+
+    <servlet>
+        <servlet-class>main.servlet.EntryServlet</servlet-class>
+        <servlet-name>EntryServlet</servlet-name>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EntryServlet</servlet-name>
+        <url-pattern>/entry.do</url-pattern>
+    </servlet-mapping>
+
+    <!--
+     <filter>
+        <filter-name>RightFilter</filter-name>
+        <filter-class>main.servlet.RightFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>RightFilter</filter-name>
+        <url-pattern>/entry.do*</url-pattern>
+    </filter-mapping>
+     -->
+
+</web-app>
